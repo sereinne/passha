@@ -3,51 +3,14 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="stylesheet" href="/src/styles.css" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Passha</title>
-  <script type="module" src="/src/main.ts" defer></script>
+  <title>Tauri + Preact + Typescript</title>
 </head>
 
 <body>
-  <main class="bg-dark-bg">
-    <div class="search-bar">
-      <input class="search-bar bg-lighten-dark-bg focus:outline-none text-2xl text-dark-clay absolute w-[95.5%] ml-14 mt-2 rounded-sm px-5 py-3 cursor-pointer
-          " placeholder="search your secrets..." type="search">
-    </div>
-    <nav class="h-screen inline-block bg-lighten-dark-bg">
-      <a href="">
-        <div
-          class="settings-icon-container rounded-md m-1 transition duration-150 hover:bg-dark-bg active:bg-lighten-dark-clay">
-          <img src="/src/assets/settings.svg" class="size-10 px-2 py-1" alt="">
-        </div>
-      </a>
-      <a href="">
-        <div
-          class="passwords-icon-container rounded-md m-1 transition duration-150 hover:bg-dark-bg active:bg-lighten-dark-clay">
-          <img src="/src/assets/passwords.svg" class="size-10 px-2 py-1" alt="">
-        </div>
-      </a>
-      <a href="">
-        <div
-          class="export-icon-container rounded-md m-1 transition duration-150 hover:bg-dark-bg active:bg-lighten-dark-clay">
-          <img src="/src/assets/export.svg" class="size-10 px-2 py-1" alt="">
-        </div>
-      </a>
-      <a href="">
-        <div
-          class="import-icon-container rounded-md m-1 transition duration-150 hover:bg-dark-bg active:bg-lighten-dark-clay">
-          <img src="/src/assets/import.svg" class="size-10 px-2 py-1" alt="">
-        </div>
-      </a>
-      <a href="">
-        <div
-          class="information-icon-container rounded-md m-1 transition duration-150 hover:bg-dark-bg active:bg-lighten-dark-clay">
-          <img src="/src/assets/information.svg" class="size-10 px-2 py-1" alt="">
-        </div>
-      </a>
-    </nav>
-  </main>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
 </body>
 
 </html>
