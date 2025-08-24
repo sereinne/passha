@@ -10,4 +10,5 @@
     --color-green: oklch(0.7582 0.1817 150.95);
     --color-light-green: oklch(0.8947 0.1073 150.95);
     --color-gray: oklch(0.3694 0.0077 264.45);
+    --color-light-gray: oklch(0.9125 0.0077 264.45);
 }
