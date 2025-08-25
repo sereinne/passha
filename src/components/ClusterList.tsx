@@ -1,4 +1,4 @@
-import { Component, Fragment } from "preact";
+import { Fragment, FunctionComponent } from "preact";
 import "../App.css";
 import { useEffect, useRef, useState } from "preact/hooks";
 
@@ -12,121 +12,48 @@ function SearchBar() {
   );
 }
 
-function DialogBox() {
-  const inputPasswordRef = useRef(null);
-  function generateSafePassword() {
-    if (inputPasswordRef.current) {
-      const inputElem: HTMLInputElement = inputPasswordRef.current;
-      inputElem.value = "foobarbaz";
-    }
-  }
-
-  function togglePassword() {
-    if (inputPasswordRef.current) {
-      const inputElem: HTMLInputElement = inputPasswordRef.current;
-      const passwordType = inputElem.getAttribute("type");
-      if (passwordType && passwordType === "password") {
-        inputElem.setAttribute("type", "text");
-      } else {
-        inputElem.setAttribute("type", "password");
-      }
-    }
-  }
-
+function ClusterCreationDialog() {
   return (
-    <dialog class="border-2 bg-beige rounded-md mx-auto my-auto px-2 py-1">
-      <form class="flex flex-col">
-        <h1 class="text-center font-bold">New Cluster</h1>
-        <div className="cluster-name flex gap-x-2 justify-center items-center my-2">
-          <label class="font-semibold" for="cluster-name">Cluster Name</label>
+    <dialog class="border-2 rounded-md bg-beige dark:bg-green mx-auto my-auto px-2 py-1">
+      <h1 class="font-bold text-center">Create New Cluster</h1>
+      <form class="grid grid-cols-[20%_80%] gap-y-3 my-1">
+        <label for="cluster-name" class="font-semibold self-center">Name</label>
+        <input
+          name="cluster-name"
+          type="text"
+          class="border-1 rounded-sm px-2 py-1"
+          required
+        />
+        <label for="cluster-password" class="font-semibold self-center">
+          Password
+        </label>
+        <div className="cluster-password flex gap-x-2">
           <input
-            type="text"
-            name="cluster-name"
-            class="border-1 rounded-md py-1 px-2"
-            required
-          />
-        </div>
-        <div className="cluster-password flex justify-center gap-x-2 items-center my-2">
-          <label for="cluster-name" class="font-semibold">Password</label>
-          <input
-            ref={inputPasswordRef}
-            type="password"
             name="cluster-password"
-            class="border-1 rounded-md py-1 px-2 w-[65%] ml-auto"
+            type="password"
+            class="border-1 rounded-sm px-2 py-1"
           />
-          <div
-            className="toggle-password cursor-pointer"
-            onClick={togglePassword}
-          >
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              class="size-6"
-            >
-              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-              <g
-                id="SVGRepo_tracerCarrier"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-              </g>
-              <g id="SVGRepo_iconCarrier">
-                <path
-                  d="M15.0007 12C15.0007 13.6569 13.6576 15 12.0007 15C10.3439 15 9.00073 13.6569 9.00073 12C9.00073 10.3431 10.3439 9 12.0007 9C13.6576 9 15.0007 10.3431 15.0007 12Z"
-                  stroke="#000000"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                </path>{" "}
-                <path
-                  d="M12.0012 5C7.52354 5 3.73326 7.94288 2.45898 12C3.73324 16.0571 7.52354 19 12.0012 19C16.4788 19 20.2691 16.0571 21.5434 12C20.2691 7.94291 16.4788 5 12.0012 5Z"
-                  stroke="#000000"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                </path>
-              </g>
-            </svg>
-          </div>
-          <div
-            className="generate-password cursor-pointer"
-            onClick={generateSafePassword}
-          >
-            <svg
-              fill="#000000"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-              class="size-6"
-            >
-              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-              <g
-                id="SVGRepo_tracerCarrier"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-              </g>
-              <g id="SVGRepo_iconCarrier">
-                <path d="M5.516 14.224c-2.262-2.432-2.222-6.244.128-8.611a6.074 6.074 0 0 1 3.414-1.736L8.989 1.8a8.112 8.112 0 0 0-4.797 2.351c-3.149 3.17-3.187 8.289-.123 11.531l-1.741 1.752 5.51.301-.015-5.834-2.307 2.323zm6.647-11.959l.015 5.834 2.307-2.322c2.262 2.434 2.222 6.246-.128 8.611a6.07 6.07 0 0 1-3.414 1.736l.069 2.076a8.122 8.122 0 0 0 4.798-2.35c3.148-3.172 3.186-8.291.122-11.531l1.741-1.754-5.51-.3z">
-                </path>
-              </g>
-            </svg>
-          </div>
+          <button type="button" className="hide-password cursor-pointer">
+            <img src="src/assets/eye.svg" class="size-8" alt="" />
+          </button>
+          <button type="button" className="generate-password cursor-pointer">
+            <img src="src/assets/cycle.svg" class="size-8" alt="" />
+          </button>
         </div>
-        <div className="cluster-otp flex gap-x-2 justify-center items-center my-2">
-          <label for="cluster-otp" class="font-semibold">OTP url</label>
-          <input
-            type="text"
-            name="cluster-otp"
-            class="border-1 rounded-md py-1 px-2 ml-auto"
-          />
-        </div>
+        <label for="cluster-otp" class="font-semibold self-center">
+          OTP url
+        </label>
+        <input
+          name="cluster-otp"
+          type="text"
+          class="border-1 rounded-sm px-2 py-1"
+        />
+        <label for="submission" class="font-semibold self-center">
+        </label>
         <input
           type="submit"
           value="create"
-          class="border-1 font-semibold rounded-md px-2 py-1 cursor-pointer"
+          class="border-1 px-2 py-1 font-semibold rounded-full cursor-pointer w-[20%] ml-auto"
         />
       </form>
     </dialog>
@@ -134,25 +61,19 @@ function DialogBox() {
 }
 
 function AddCluster() {
-  const dialogRef = useRef(null);
+  const clusterCreationDialog = useRef(null);
 
-  function showNewClusterTemplate() {
-    //const dialog = dialogRef.current;
-    //if (dialog) {
-    //  const assigned: HTMLDialogElement = dialog;
-    //  assigned.showModal();
-    //}
-    const dialog = dialogRef.current;
-    if (dialog) {
-      const dialog_component: HTMLDialogElement = dialog.base;
-      dialog_component.showModal();
+  function showClusterCreation() {
+    if (clusterCreationDialog.current) {
+      const dialog: HTMLDialogElement = clusterCreationDialog.current.base;
+      dialog.showModal();
     }
   }
 
   return (
     <Fragment>
       <button
-        onClick={showNewClusterTemplate}
+        onClick={showClusterCreation}
         type="button"
         class="cursor-pointer bg-beige dark:bg-green dark:border-none border-2 transition duration-150 ease-out rounded-md flex justify-center items-center hover:shadow-lg"
       >
@@ -181,7 +102,7 @@ function AddCluster() {
           </g>
         </svg>
       </button>
-      <DialogBox ref={dialogRef} />
+      <ClusterCreationDialog ref={clusterCreationDialog} />
     </Fragment>
   );
 }
