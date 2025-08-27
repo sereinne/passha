@@ -1,91 +1,105 @@
 import "../App.css";
-import { useState } from "preact/hooks";
+import { Dispatch, StateUpdater, useState } from "preact/hooks";
 
-interface BtnOptions {
-  text: string;
+interface NavBtnOpts {
+  iconName: string;
   iconPath: string;
-  bottom: boolean;
-  toggleCond: boolean;
-  toggler: () => void;
+  isInBottom: boolean;
+  isActive: boolean;
+  activator: () => void;
+  pageSwitcher: () => void;
 }
 
-function NavBtn({ text, iconPath, bottom, toggleCond, toggler }: BtnOptions) {
-  const toggleBottom = bottom ? "mt-auto" : "";
-  const shouldToggle = toggleCond ? "bg-beige-dark dark:bg-light-green" : "";
+function NavBtn(
+  { iconName, iconPath, isInBottom, isActive, activator, pageSwitcher }:
+    NavBtnOpts,
+) {
   return (
     <button
-      onClick={toggler}
+      onClick={() => {
+        activator();
+        pageSwitcher();
+      }}
       type="button"
-      class={`flex flex-col justify-center items-center rounded-md py-1 gap-y-1 transition duration-250 ease-out cursor-pointer ${toggleBottom} ${shouldToggle}`}
+      class={`${
+        isInBottom ? "mt-auto" : ""
+      } cursor-pointer flex flex-col justify-center items-center gap-y-1`}
     >
-      <img src={iconPath} class="size-6" alt="" />
-      <p class="font-semibold text-[0.5rem]">{text}</p>
+      <div
+        className={`icon ${
+          isActive ? "bg-beige-dark" : ""
+        } px-2 py-1 rounded-md`}
+      >
+        <img src={`src/assets/${iconPath}`} class="size-6" alt="" />
+      </div>
+      <p class="font-semibold text-xs">{iconName}</p>
     </button>
   );
 }
 
-export default function NavBar() {
-  const [activeButtonName, setActiveButton] = useState("clusters");
-  const navBtnTemplates = [
+interface NavbarOpts {
+  activePage: string;
+  switchPage: Dispatch<StateUpdater<string>>;
+}
+
+export default function Navbar({ activePage, switchPage }: NavbarOpts) {
+  const [activeBtn, setActiveBtn] = useState(activePage);
+  const preDefinedButtons: Array<NavBtnOpts> = [
     {
-      text: "account",
-      iconPath: "src/assets/user.svg",
-      bottom: false,
-      toggleCond: "account" === activeButtonName,
-      toggler: () => setActiveButton("account"),
+      iconName: "account",
+      iconPath: "user.svg",
+      isInBottom: false,
+      isActive: "account" === activeBtn,
+      activator: () => setActiveBtn("account"),
+      pageSwitcher: () => switchPage("account"),
     },
     {
-      text: "settings",
-      iconPath: "src/assets/settings.svg",
-      bottom: false,
-      toggleCond: "settings" === activeButtonName,
-      toggler: () => setActiveButton("settings"),
+      iconName: "clusters",
+      iconPath: "cluster.svg",
+      isInBottom: false,
+      isActive: "clusters" === activeBtn,
+      activator: () => setActiveBtn("clusters"),
+      pageSwitcher: () => switchPage("clusters"),
     },
     {
-      text: "clusters",
-      iconPath: "src/assets/cluster.svg",
-      bottom: false,
-      toggleCond: "clusters" === activeButtonName,
-      toggler: () => setActiveButton("clusters"),
+      iconName: "import",
+      iconPath: "import.svg",
+      isInBottom: false,
+      isActive: "import" === activeBtn,
+      activator: () => setActiveBtn("import"),
+      pageSwitcher: () => switchPage("import"),
     },
     {
-      text: "import",
-      iconPath: "src/assets/import.svg",
-      bottom: false,
-      toggleCond: "import" === activeButtonName,
-      toggler: () => setActiveButton("import"),
+      iconName: "export",
+      iconPath: "export.svg",
+      isInBottom: false,
+      isActive: "export" === activeBtn,
+      activator: () => setActiveBtn("export"),
+      pageSwitcher: () => switchPage("export"),
     },
     {
-      text: "export",
-      iconPath: "src/assets/export.svg",
-      bottom: false,
-      toggleCond: "export" === activeButtonName,
-      toggler: () => setActiveButton("export"),
-    },
-    {
-      text: "about",
-      iconPath: "src/assets/info.svg",
-      bottom: true,
-      toggleCond: "about" === activeButtonName,
-      toggler: () => setActiveButton("about"),
+      iconName: "About Passha",
+      iconPath: "info.svg",
+      isInBottom: true,
+      isActive: "About Passha" === activeBtn,
+      activator: () => setActiveBtn("About Passha"),
+      pageSwitcher: () => switchPage("About Passha"),
     },
   ];
-
   return (
-    <nav class="bg-beige dark:bg-green text-gray flex flex-col gap-y-4 py-1 px-1">
-      {navBtnTemplates.map(
-        ({ text, iconPath, bottom, toggleCond, toggler }) => {
-          return (
-            <NavBtn
-              text={text}
-              iconPath={iconPath}
-              bottom={bottom}
-              toggleCond={toggleCond}
-              toggler={toggler}
-            />
-          );
-        },
-      )}
+    <nav class="bg-beige flex flex-col gap-y-5 py-3 px-2">
+      {preDefinedButtons.map((cfg) => {
+        return (
+          <NavBtn
+            iconName={cfg.iconName}
+            iconPath={cfg.iconPath}
+            isInBottom={cfg.isInBottom}
+            isActive={cfg.isActive}
+            activator={cfg.activator}
+            pageSwitcher={cfg.pageSwitcher}
+          />
+        );
+      })}
     </nav>
   );
 }
