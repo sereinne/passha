@@ -47,7 +47,7 @@ export default function Navbar({ activePage, switchPage }: NavbarOpts) {
   const preDefinedButtons: Array<NavBtnOpts> = [
     {
       iconName: "account",
-      iconPath: "user.svg",
+      iconPath: "settings.svg",
       isInBottom: false,
       isActive: "account" === activeBtn,
       activator: () => setActiveBtn("account"),

@@ -7,10 +7,12 @@ import { useState } from "preact/hooks";
 function App() {
   const [activePage, setActivePage] = useState("clusters");
   return (
-    <div class="region-divider h-screen grid grid-cols-[3.75rem_auto]">
-      <Navbar activePage={activePage} switchPage={setActivePage} />
-      <Content page={activePage} />
-    </div>
+    <>
+      <div class="region-divider h-screen grid grid-cols-[3.75rem_auto] gap-x-2">
+        <Navbar activePage={activePage} switchPage={setActivePage} />
+        <Content page={activePage} />
+      </div>
+    </>
   );
 }
 

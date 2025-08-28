@@ -1,3 +1,9 @@
+import AboutPage from "./AboutPage.tsx";
+import ClustersPage from "./ClustersPage.tsx";
+import ImportPage from "./ImportPage.tsx";
+import ExportPage from "./ExportPage.tsx";
+import AccountPage from "./AccountPage.tsx";
+
 interface ContentOpts {
   page: string;
 }
@@ -5,14 +11,14 @@ interface ContentOpts {
 export default function Content({ page }: ContentOpts) {
   switch (page) {
     case "account":
-      return <h1>hello from account</h1>;
+      return <AccountPage />;
     case "clusters":
-      return <h1>hello from clusters</h1>;
+      return <ClustersPage />;
     case "import":
-      return <h1>hello from import</h1>;
+      return <ImportPage />;
     case "export":
-      return <h1>hello from export</h1>;
+      return <ExportPage />;
     case "About Passha":
-      return <h1>hello from about passha</h1>;
+      return <AboutPage />;
   }
 }
