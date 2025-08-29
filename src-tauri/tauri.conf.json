@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "passha",
+  "productName": "koentji",
   "version": "0.1.0",
-  "identifier": "com.passha.app",
+  "identifier": "com.koentji.app",
   "build": {
     "beforeDevCommand": "deno task dev",
     "devUrl": "http://localhost:1420",
